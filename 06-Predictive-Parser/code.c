@@ -55,7 +55,7 @@ void match(char topChar) {
     if (*input == topChar) {
         printf("\n%s popped %c", input, topChar);
         ln++;
-        strcpy(input, &input[1]); // pops matched input symbol from input
+        strcpy(input, &input[1]);
     } else {
         printf("\nError %c didn't produced by any production at this place", *input);
         err++;

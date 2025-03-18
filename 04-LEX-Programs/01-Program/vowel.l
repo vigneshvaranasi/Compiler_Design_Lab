@@ -4,7 +4,8 @@ int vowel_count = 0, consonant_count = 0;
 %}
 %%
 [aAeEiIoOuU] {vowel_count++;}
-[a-zA-Z] {consonant_count++;}
+[a-df-hj-np-tv-zA-DF-HJ-NP-TV-Z] {consonant_count++;}
+\n { return 0; }
 . ;
 %%
 int yywrap() {return 1;}

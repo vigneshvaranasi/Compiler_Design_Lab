@@ -10,7 +10,7 @@ char act[15];
 void check();
 
 int main() {
-    printf("\n\t\tShift Reduce Parser\n");
+    printf("\nShift Reduce Parser\n");
     printf("\nGrammar:\n");
     printf("E -> E + E\n");
     printf("E -> E / E\n");
@@ -68,14 +68,16 @@ void check() {
         flag = 1;
 
     if ((!strcmp(stack, "E+E")) || (!strcmp(stack, "E/E")) || (!strcmp(stack, "E*E"))) {
+        char matchedRule[5];
+        strcpy(matchedRule, stack);
         strcpy(stack, "E");
         st_ptr = 0;
-        if (!strcmp(stack, "E+E"))
-            printf("$%s\t\t%s$\t\t\tE -> E + E\n", stack, ip_sym);
-        else if (!strcmp(stack, "E/E"))
-            printf("$%s\t\t%s$\t\t\tE -> E / E\n", stack, ip_sym);
-        else if (!strcmp(stack, "E*E"))
-            printf("$%s\t\t%s$\t\t\tE -> E * E\n", stack, ip_sym);
+        if (!strcmp(matchedRule, "E+E"))
+            printf("$%s\t\t%s$\t\t\tE -> E + E\n", matchedRule, ip_sym);
+        else if (!strcmp(matchedRule, "E/E"))
+            printf("$%s\t\t%s$\t\t\tE -> E / E\n", matchedRule, ip_sym);
+        else if (!strcmp(matchedRule, "E*E"))
+            printf("$%s\t\t%s$\t\t\tE -> E * E\n", matchedRule, ip_sym);
         flag = 1;
     }
 
@@ -90,3 +92,50 @@ void check() {
     }
     return;
 }
+
+// Output - 1
+/* 
+Shift Reduce Parser
+
+Grammar:
+E -> E + E
+E -> E / E
+E -> E * E
+E -> a | b
+
+Enter the input string: a+b
+
+Stack Implementation Table
+Stack           Input Symbol            Action
+------          ------------            ------
+$               a+b$                    --
+$a               +b$                    Shift a
+$E               +b$                    E -> a
+$E+               b$                    Shift +
+$E+b               $                    Shift b
+$E+E               $                    E -> b
+$E+E               $                    E -> E + E
+$E                 $                    ACCEPT
+*/
+
+// Output - 2
+/* 
+Shift Reduce Parser
+
+Grammar:
+E -> E + E
+E -> E / E
+E -> E * E
+E -> a | b
+
+Enter the input string: a-b
+
+Stack Implementation Table
+Stack           Input Symbol            Action
+------          ------------            ------
+$               a-b$                    --
+$a               -b$                    Shift a
+$E               -b$                    E -> a
+$E-               b$                    Shift -
+$E-               b$                    Reject
+*/
